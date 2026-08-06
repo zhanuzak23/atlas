@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Atlas — инфраструктура для современного образования</title>
+<meta name="description" content="Atlas проектирует и разрабатывает цифровые продукты для образовательных центров: сайты, платформы обучения, CRM, панели управления и личные кабинеты.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300..800;1,14..32,300..800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0A0B09;
+  --ink:#0A0B09;
+  --cream:#EEF2E6;
+  --cream-dim:#DCE3D0;
+  --lime:#D4FF3F;
+  --olive:#1B1E14;
+  --olive-2:#242819;
+  --muted:rgba(238,242,230,.55);
+  --muted-ink:rgba(10,11,9,.55);
+  --r:28px;
+  --pad:clamp(20px,4vw,64px);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--bg);color:var(--cream);
+  font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  font-optical-sizing:auto;-webkit-font-smoothing:antialiased;
+  font-size:17px;line-height:1.55;letter-spacing:-.011em;
+}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1240px;margin:0 auto;padding:0 var(--pad)}
+.em{font-style:italic;font-weight:300}
+
+/* ---------- nav ---------- */
+.nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(14px);
+  background:linear-gradient(to bottom,rgba(10,11,9,.92),rgba(10,11,9,.6));
+  border-bottom:1px solid rgba(238,242,230,.07)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:72px;gap:24px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:600;letter-spacing:-.03em;font-size:19px}
+.logo i{width:11px;height:11px;border-radius:50%;background:var(--lime);display:block;font-style:normal}
+.nav nav{display:flex;gap:28px;font-size:15px;color:var(--muted)}
+.nav nav a:hover{color:var(--cream)}
+@media(max-width:900px){.nav nav{display:none}}
+
+.btn{display:inline-flex;align-items:center;gap:10px;background:var(--lime);color:var(--ink);
+  padding:14px 24px;border-radius:100px;font-weight:600;font-size:15px;letter-spacing:-.015em;
+  transition:transform .25s cubic-bezier(.2,.7,.3,1),box-shadow .25s;white-space:nowrap}
+.btn:hover{transform:translateY(-2px);box-shadow:0 10px 30px -8px rgba(212,255,63,.45)}
+.btn.ghost{background:transparent;color:var(--cream);border:1px solid rgba(238,242,230,.22)}
+.btn.ghost:hover{border-color:var(--lime);box-shadow:none}
+.btn svg{width:14px;height:14px}
+
+/* ---------- hero ---------- */
+.hero{padding:clamp(56px,9vw,120px) 0 clamp(40px,6vw,72px)}
+.eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:13px;letter-spacing:.04em;
+  text-transform:uppercase;color:var(--muted);border:1px solid rgba(238,242,230,.14);
+  padding:8px 16px;border-radius:100px;margin-bottom:34px}
+.eyebrow b{width:6px;height:6px;border-radius:50%;background:var(--lime)}
+h1{font-size:clamp(38px,6.6vw,86px);line-height:.98;letter-spacing:-.045em;font-weight:600;margin:0 0 28px;max-width:16ch}
+h1 span{color:var(--lime)}
+.lead{font-size:clamp(17px,1.5vw,21px);color:var(--muted);max-width:60ch;margin:0 0 18px;line-height:1.5}
+.lead.strong{color:var(--cream-dim)}
+.quote{margin:34px 0 40px;padding-left:20px;border-left:2px solid var(--lime);
+  font-size:clamp(18px,2vw,24px);letter-spacing:-.03em;max-width:34ch;line-height:1.3}
+.hero-cta{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;
+  margin-top:clamp(56px,8vw,92px);background:rgba(238,242,230,.1);border-radius:var(--r);overflow:hidden}
+.stat{background:var(--bg);padding:28px var(--pad) 30px 28px}
+.stat b{display:block;font-size:clamp(30px,3.4vw,44px);letter-spacing:-.045em;font-weight:600;line-height:1}
+.stat b em{font-style:normal;color:var(--lime)}
+.stat span{display:block;margin-top:10px;font-size:14px;color:var(--muted);line-height:1.35}
+
+/* ---------- sections ---------- */
+section{padding:clamp(64px,8vw,120px) 0}
+.head{display:flex;justify-content:space-between;align-items:flex-end;gap:32px;margin-bottom:44px;flex-wrap:wrap}
+h2{font-size:clamp(30px,4.6vw,60px);line-height:1.02;letter-spacing:-.04em;font-weight:600;margin:0;max-width:18ch}
+.tag{font-size:13px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);
+  display:flex;align-items:center;gap:9px;margin-bottom:18px}
+.tag b{width:22px;height:1px;background:var(--lime);display:block}
+
+/* ---------- cards ---------- */
+.grid{display:grid;grid-template-columns:repeat(6,1fr);gap:14px}
+.card{grid-column:span 2;background:var(--olive);border:1px solid rgba(238,242,230,.07);
+  border-radius:var(--r);padding:30px 28px 28px;display:flex;flex-direction:column;min-height:280px;
+  transition:transform .3s cubic-bezier(.2,.7,.3,1),border-color .3s,background .3s;position:relative;overflow:hidden}
+.card:hover{transform:translateY(-4px);border-color:rgba(212,255,63,.35);background:var(--olive-2)}
+.card .num{font-size:13px;color:var(--muted);letter-spacing:.06em;margin-bottom:auto}
+.card h3{font-size:13px;letter-spacing:.05em;text-transform:uppercase;color:var(--lime);
+  font-weight:600;margin:0 0 14px}
+.card h4{font-size:clamp(20px,1.9vw,25px);line-height:1.15;letter-spacing:-.032em;font-weight:600;margin:0 0 12px}
+.card p{margin:0;color:var(--muted);font-size:15px;line-height:1.5}
+.card .arw{margin-top:24px;width:38px;height:38px;border-radius:50%;border:1px solid rgba(238,242,230,.18);
+  display:grid;place-items:center;transition:.3s}
+.card:hover .arw{background:var(--lime);border-color:var(--lime);color:var(--ink);transform:rotate(45deg)}
+.card .arw svg{width:14px;height:14px}
+
+/* featured variants */
+.card.wide{grid-column:span 3}
+.card.light{background:var(--cream);border-color:transparent;color:var(--ink)}
+.card.light p{color:var(--muted-ink)}
+.card.light h3{color:#5A7A00}
+.card.light .num{color:var(--muted-ink)}
+.card.light .arw{border-color:rgba(10,11,9,.2)}
+.card.light:hover{background:#F6F9F0}
+.card.lime{background:var(--lime);border-color:transparent;color:var(--ink)}
+.card.lime p{color:rgba(10,11,9,.62)}
+.card.lime h3{color:rgba(10,11,9,.5)}
+.card.lime .num{color:rgba(10,11,9,.5)}
+.card.lime .arw{border-color:rgba(10,11,9,.25)}
+.card.lime:hover .arw{background:var(--ink);border-color:var(--ink);color:var(--lime)}
+@media(max-width:1000px){.grid{grid-template-columns:repeat(4,1fr)}.card,.card.wide{grid-column:span 2}}
+@media(max-width:640px){.grid{grid-template-columns:1fr}.card,.card.wide{grid-column:span 1;min-height:0}}
+
+/* ---------- why ---------- */
+.why{background:var(--cream);color:var(--ink);border-radius:var(--r);padding:clamp(32px,5vw,72px)}
+.why .tag{color:var(--muted-ink)}
+.why .tag b{background:#8AA800}
+.why h2{max-width:20ch}
+.why .lead{color:var(--muted-ink);max-width:52ch;margin-top:22px}
+.why-list{list-style:none;padding:0;margin:clamp(36px,5vw,56px) 0 0;
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:0 44px;
+  border-top:1px solid rgba(10,11,9,.12)}
+.why-list li{display:flex;gap:16px;padding:22px 0;border-bottom:1px solid rgba(10,11,9,.12);
+  font-size:16px;letter-spacing:-.018em;line-height:1.4}
+.why-list li s{text-decoration:none;color:#7E9B00;font-variant-numeric:tabular-nums;font-weight:600;font-size:13px;padding-top:3px}
+
+/* ---------- cta ---------- */
+.cta{background:var(--olive);border-radius:var(--r);padding:clamp(32px,5vw,72px);
+  border:1px solid rgba(238,242,230,.08)}
+.cta h2{max-width:14ch}
+.cta h2 em{font-style:italic;font-weight:300;color:var(--lime)}
+.contacts{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin-top:44px}
+.contact{background:rgba(238,242,230,.04);border:1px solid rgba(238,242,230,.09);border-radius:22px;
+  padding:26px 26px 22px;transition:.3s;display:flex;flex-direction:column;gap:8px}
+.contact:hover{background:rgba(212,255,63,.07);border-color:rgba(212,255,63,.4);transform:translateY(-3px)}
+.contact b{font-size:20px;letter-spacing:-.03em;font-weight:600}
+.contact span{color:var(--muted);font-size:15px}
+.contact i{font-style:normal;margin-top:12px;color:var(--lime);font-size:14px;font-weight:600}
+
+/* ---------- footer ---------- */
+footer{padding:44px 0 56px;border-top:1px solid rgba(238,242,230,.08);margin-top:clamp(64px,8vw,110px)}
+footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
+  color:var(--muted);font-size:14px;align-items:center}
+
+/* reveal */
+.rv{opacity:0;transform:translateY(22px);transition:opacity .7s cubic-bezier(.2,.7,.3,1),transform .7s cubic-bezier(.2,.7,.3,1)}
+.rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="logo" href="#top"><i></i>Atlas</a>
+    <nav>
+      <a href="#solutions">Решения</a>
+      <a href="#why">Почему Atlas</a>
+      <a href="#contact">Контакты</a>
+    </nav>
+    <a class="btn" href="#contact">Обсудить проект</a>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap">
+      <div class="eyebrow rv"><b></b>Цифровые продукты для образовательных центров</div>
+      <h1 class="rv">Atlas — <span class="em">инфраструктура</span> для современного образования</h1>
+      <p class="lead strong rv">Помогаем образовательным центрам работать эффективнее с помощью цифровых решений.</p>
+      <p class="lead rv">Мы проектируем и разрабатываем продукты, которые автоматизируют процессы, улучшают обучение, повышают качество сервиса и помогают образовательным центрам масштабироваться.</p>
+      <blockquote class="quote rv">Не просто создаем сайты — создаем <span class="em">инструменты для роста</span> образования.</blockquote>
+      <div class="hero-cta rv">
+        <a class="btn" href="#contact">Обсудить проект
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+        </a>
+        <a class="btn ghost" href="#solutions">Наши решения</a>
+      </div>
+
+      <div class="stats rv">
+        <div class="stat"><b><em>7</em></b><span>направлений разработки под задачи центра</span></div>
+        <div class="stat"><b>100<em>%</em></b><span>фокус только на образовательной сфере</span></div>
+        <div class="stat"><b>24/7</b><span>процессы работают без ручного контроля</span></div>
+        <div class="stat"><b>0</b><span>шаблонных решений «под копирку»</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOLUTIONS -->
+  <section id="solutions">
+    <div class="wrap">
+      <div class="head rv">
+        <div>
+          <div class="tag"><b></b>Наши решения</div>
+          <h2>Продукты, которые закрывают <span class="em">весь цикл</span> работы центра</h2>
+        </div>
+        <a class="btn ghost" href="#contact">Нужно что-то своё?</a>
+      </div>
+
+      <div class="grid">
+        <article class="card light wide rv">
+          <div class="num">01</div>
+          <h3>Сайт образовательного центра</h3>
+          <h4>Современный сайт, который привлекает новых учеников</h4>
+          <p>Создаем быстрые, красивые и удобные сайты для образовательных центров. Продуманная структура помогает посетителям быстро понять ваши преимущества и оставить заявку.</p>
+          <div class="arw"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8h10M9 4l4 4-4 4"/></svg></div>
+        </article>
+
+        <article class="card wide rv">
+          <div class="num">02</div>
+          <h3>Онлайн-платформа обучения</h3>
+          <h4>Собственная образовательная система</h4>
+          <p>Разрабатываем платформы для онлайн-обучения с курсами, видеоуроками, тестами, домашними заданиями, личными кабинетами и отслеживанием прогресса учеников.</p>
+          <div class="arw"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8h10M9 4l4 4-4 4"/></svg></div>
+        </article>
+
+        <article class="card rv">
+          <div class="num">03</div>
+          <h3>Онлайн-тестирование</h3>
+          <h4>Автоматическая проверка знаний</h4>
+          <p>Создаем системы тестирования для определения уровня знаний, вступительных экзаменов и внутренних проверок с автоматической обработкой результатов.</p>
+          <div class="arw"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8h10M9 4l4 4-4 4"/></svg></div>
+        </article>
+
+        <article class="card lime rv">
+          <div class="num">04</div>
+          <h3>CRM и автоматизация</h3>
+          <h4>Освободите сотрудников от рутины</h4>
+          <p>Автоматизируем работу образовательного центра: заявки, ученики, расписание, преподаватели, оплаты, группы, уведомления и внутренние процессы.</p>
+          <div class="arw"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8h10M9 4l4 4-4 4"/></svg></div>
+        </article>
+
+        <article class="card rv">
+          <div class="num">05</div>
+          <h3>Панель управления</h3>
+          <h4>Все показатели центра в одном месте</h4>
+          <p>Руководитель отслеживает ключевые показатели: продажи, количество учеников, посещаемость, оплаты и эффективность работы.</p>
+          <div class="arw"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8h10M9 4l4 4-4 4"/></svg></div>
+        </article>
+
+        <article class="card wide rv">
+          <div class="num">06</div>
+          <h3>Личные кабинеты</h3>
+          <h4>Удобный сервис для учеников, родителей и преподавателей</h4>
+          <p>Создаем личные кабинеты с расписанием занятий, домашними заданиями, результатами обучения, уведомлениями и другой важной информацией.</p>
+          <div class="arw"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8h10M9 4l4 4-4 4"/></svg></div>
+        </article>
+
+        <article class="card light wide rv">
+          <div class="num">07</div>
+          <h3>Индивидуальная разработка</h3>
+          <h4>Решения под задачи вашего центра</h4>
+          <p>Если вашей задаче не существует готового решения — мы разработаем цифровой продукт специально под ваши процессы.</p>
+          <div class="arw"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8h10M9 4l4 4-4 4"/></svg></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY -->
+  <section id="why">
+    <div class="wrap">
+      <div class="why rv">
+        <div class="tag"><b></b>Почему Atlas</div>
+        <h2>Мы специализируемся <span class="em">только</span> на образовательной сфере</h2>
+        <p class="lead">Поэтому понимаем реальные проблемы образовательных центров и создаем продукты, которые действительно помогают работать эффективнее.</p>
+        <ul class="why-list">
+          <li><s>01</s>Работаем только с образовательными проектами.</li>
+          <li><s>02</s>Проектируем решения под реальные процессы центра.</li>
+          <li><s>03</s>Автоматизируем рутинные задачи.</li>
+          <li><s>04</s>Создаем удобные инструменты для сотрудников, преподавателей, учеников и родителей.</li>
+          <li><s>05</s>Разрабатываем продукты с расчетом на долгосрочное развитие.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section id="contact">
+    <div class="wrap">
+      <div class="cta rv">
+        <div class="tag"><b></b>Есть задача?</div>
+        <h2>Расскажите о своем <em>образовательном центре</em></h2>
+        <p class="lead" style="margin-top:22px">Мы предложим решение, которое поможет сделать процессы проще, обучение эффективнее, а управление удобнее.</p>
+
+        <div class="contacts">
+          <a class="contact" href="https://wa.me/" target="_blank" rel="noopener">
+            <b>WhatsApp</b>
+            <span>Обсудить проект и получить предложение.</span>
+            <i>Написать →</i>
+          </a>
+          <a class="contact" href="https://instagram.com/" target="_blank" rel="noopener">
+            <b>Instagram</b>
+            <span>Посмотреть наши проекты и следить за обновлениями.</span>
+            <i>Открыть →</i>
+          </a>
+          <a class="contact" href="mailto:hello@atlas.dev">
+            <b>Email</b>
+            <span>Отправить бриф или техническое задание.</span>
+            <i>hello@atlas.dev →</i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <a class="logo" href="#top"><i></i>Atlas</a>
+    <span>Инфраструктура для современного образования</span>
+    <span>© 2026 Atlas</span>
+  </div>
+</footer>
+
+<script>
+const io = new IntersectionObserver((es)=>{
+  es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+},{rootMargin:'0px 0px -8% 0px',threshold:.08});
+document.querySelectorAll('.rv').forEach((el,i)=>{
+  el.style.transitionDelay = (Math.min(i,6)*55)+'ms';
+  io.observe(el);
+});
+</script>
+</body>
+</html>
