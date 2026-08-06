@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Atlas — цифровые продукты для образовательных центров</title>
 <meta name="description" content="Atlas разрабатывает сайты, платформы обучения, CRM, панели управления и личные кабинеты для образовательных центров.">
 <meta name="theme-color" content="#111111">
@@ -24,7 +24,9 @@
   --line:rgba(242,237,234,.1); --line-ink:rgba(17,17,17,.12);
   --dim:rgba(242,237,234,.55); --dim-2:rgba(242,237,234,.32);
   --r:26px; --pad:clamp(18px,4vw,64px); --ease:cubic-bezier(.22,.68,.24,1);
-  --nav-h:74px;
+  --nav-h:70px;
+  /* высота «чёлки» / статус-бара — шапка закрывает её собой */
+  --safe-top:env(safe-area-inset-top,0px);
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
@@ -41,17 +43,26 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:100;op
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E")}
 
 /* ---------- шапка: полностью непрозрачная ---------- */
-.nav{position:fixed;top:0;left:0;right:0;z-index:70;background:transparent;
-  border-bottom:1px solid transparent;
-  transition:background .3s var(--ease),border-color .3s var(--ease),box-shadow .3s var(--ease)}
-/* при скролле — полностью непрозрачная плашка, фон под ней не просвечивает */
-.nav.stuck{background:var(--bg);border-bottom-color:var(--line);box-shadow:0 16px 34px -26px #000}
+/* шапка: сплошная всегда, вместе со статус-баром — под ней ничего не видно */
+.nav{position:fixed;top:0;left:0;right:0;z-index:70;
+  background:var(--bg);padding-top:var(--safe-top);
+  border-bottom:1px solid transparent;transition:border-color .3s var(--ease)}
+.nav.stuck{border-bottom-color:var(--line)}
 .nav .bar{display:flex;align-items:center;justify-content:space-between;gap:20px;height:var(--nav-h);
   max-width:1280px;margin:0 auto;padding:0 var(--pad);transition:height .35s var(--ease)}
-.nav.stuck .bar{height:62px}
-.logo{display:block;height:24px;color:var(--text);transition:height .35s var(--ease)}
+.nav.stuck .bar{height:60px}
+.logo{display:block;height:24px;color:var(--text);transition:height .35s var(--ease);
+  background:none;border:0;padding:0}
 .nav.stuck .logo{height:21px}
 .logo svg{height:100%;width:auto;display:block}
+
+/* иконка Telegram */
+.tg{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;flex:none;
+  background:var(--sand);color:var(--bg);transition:.35s var(--ease)}
+.tg svg{width:20px;height:20px;display:block;transform:translateX(-1px)}
+.tg:hover{background:var(--sand-2);transform:translateY(-2px);
+  box-shadow:0 12px 26px -12px rgba(196,194,170,.6)}
+.nav.stuck .tg{width:40px;height:40px}
 
 .btn{display:inline-flex;align-items:center;gap:9px;background:var(--sand);color:var(--bg);
   padding:13px 22px;border-radius:100px;font-weight:700;font-size:14.5px;letter-spacing:-.015em;
@@ -65,8 +76,8 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:100;op
 .btn.lg{padding:16px 28px;font-size:15.5px}
 
 /* ---------- главная ---------- */
-.hero{position:relative;padding:calc(var(--nav-h) + clamp(36px,5vw,64px)) 0 clamp(40px,5vw,68px);
-  overflow:hidden;isolation:isolate}
+.hero{position:relative;overflow:hidden;isolation:isolate;
+  padding:calc(var(--nav-h) + var(--safe-top) + clamp(36px,5vw,64px)) 0 clamp(40px,5vw,68px)}
 .hero .light{position:absolute;left:50%;top:-42%;width:min(1400px,150vw);aspect-ratio:1/.7;transform:translateX(-50%);
   background:radial-gradient(ellipse at 50% 42%,rgba(108,155,173,.2),rgba(34,77,95,.14) 34%,transparent 68%);
   filter:blur(30px);z-index:-2}
@@ -87,7 +98,7 @@ h1 .serif{font-size:1.06em;color:var(--sand)}
 .hero-copy{text-align:center;display:flex;flex-direction:column;align-items:center}
 
 /* ---------- дисплей ---------- */
-.stage{position:relative;margin-top:clamp(36px,5vw,60px);display:grid;place-items:center;padding-bottom:34px}
+.stage{position:relative;margin-top:clamp(36px,5vw,60px);display:grid;place-items:center}
 .stage .beam{position:absolute;top:-6%;left:50%;transform:translateX(-50%);width:min(1100px,116%);height:104%;
   background:radial-gradient(ellipse at 50% 20%,rgba(108,155,173,.13),transparent 62%);pointer-events:none}
 .display{width:min(900px,100%);position:relative}
@@ -103,8 +114,6 @@ h1 .serif{font-size:1.06em;color:var(--sand)}
   box-shadow:0 26px 40px -18px rgba(0,0,0,.9)}
 .display .reflect{position:absolute;left:50%;transform:translateX(-50%);bottom:-60px;width:70%;height:60px;
   background:radial-gradient(ellipse at 50% 0,rgba(108,155,173,.16),transparent 68%);filter:blur(14px)}
-.stage-cap{position:absolute;bottom:0;left:50%;transform:translateX(-50%);font-size:10.5px;letter-spacing:.12em;
-  text-transform:uppercase;color:var(--dim-2);font-weight:700;white-space:nowrap}
 
 /* интерфейс роста внутри дисплея */
 .growth{position:absolute;inset:0;color:var(--indigo);display:flex;flex-direction:column;
@@ -267,16 +276,16 @@ h2 .serif{font-size:1.05em;color:var(--sand)}
   filter:drop-shadow(0 1px 2px rgba(0,0,0,.3))}
 
 /* ---------- контакты ---------- */
-.foot{background:var(--indigo);border:1px solid rgba(108,155,173,.16);border-radius:var(--r);
-  padding:clamp(24px,4vw,44px);position:relative;overflow:hidden}
-.foot .glow{position:absolute;top:-70%;right:-10%;width:520px;aspect-ratio:1;border-radius:50%;
-  background:radial-gradient(circle,rgba(108,155,173,.24),transparent 64%);filter:blur(28px)}
-.foot-top{display:flex;justify-content:space-between;align-items:flex-end;gap:26px;flex-wrap:wrap;position:relative}
+/* контакты — без островка, прямо на фоне страницы */
+.foot{position:relative;padding-top:clamp(12px,2vw,24px);border-top:1px solid var(--line)}
+.foot-top{display:flex;justify-content:space-between;align-items:flex-end;gap:26px;flex-wrap:wrap;
+  position:relative;padding-top:clamp(26px,4vw,44px)}
 .foot h2{max-width:15ch}
-.links{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px;margin-top:30px;position:relative}
-.link{background:rgba(242,237,234,.05);border:1px solid rgba(242,237,234,.1);border-radius:16px;
+.links{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px;
+  margin-top:clamp(28px,4vw,42px);position:relative}
+.link{background:transparent;border:1px solid var(--line);border-radius:16px;
   padding:18px 18px 16px;transition:.4s var(--ease);display:flex;flex-direction:column;gap:4px}
-.link:hover{background:rgba(196,194,170,.12);border-color:rgba(196,194,170,.45);transform:translateY(-3px)}
+.link:hover{background:rgba(196,194,170,.08);border-color:rgba(196,194,170,.45);transform:translateY(-3px)}
 .link b{font-size:17px;letter-spacing:-.035em;font-weight:700}
 .link span{color:rgba(242,237,234,.6);font-size:13.5px}
 .link i{font-style:normal;margin-top:10px;color:var(--sand);font-size:13px;font-weight:700;
@@ -316,7 +325,11 @@ h2 .serif{font-size:1.05em;color:var(--sand)}
     <a class="logo" href="#top" aria-label="Atlas — на главную">
       <svg viewBox="0 0 928 141"><use href="#atlas-logo"/></svg>
     </a>
-    <a class="btn" href="#contact">Обсудить проект</a>
+    <a class="tg" href="https://t.me/atlas" target="_blank" rel="noopener" aria-label="Написать в Telegram" title="Написать в Telegram">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M21.94 4.37 18.9 19.1c-.23 1.02-.84 1.27-1.7.79l-4.7-3.47-2.27 2.19c-.25.25-.46.46-.95.46l.34-4.8 8.72-7.88c.38-.34-.08-.53-.59-.19L6.98 13.06 2.34 11.6c-1.01-.31-1.03-1 .21-1.48l18.14-6.99c.84-.31 1.57.19 1.25 3.24Z" transform="translate(0 -1.2)"/>
+      </svg>
+    </a>
   </div>
 </header>
 
@@ -381,7 +394,6 @@ h2 .serif{font-size:1.05em;color:var(--sand)}
         <div class="base"></div>
         <div class="reflect"></div>
       </div>
-      <div class="stage-cap">Пример интерфейса</div>
     </div>
   </div>
 </section>
@@ -529,7 +541,6 @@ h2 .serif{font-size:1.05em;color:var(--sand)}
 <section id="contact" style="padding-top:0">
   <div class="wrap">
     <div class="foot rv">
-      <div class="glow"></div>
       <div class="foot-top">
         <div>
           <div class="tag"><b></b>Есть задача?</div>
@@ -541,6 +552,10 @@ h2 .serif{font-size:1.05em;color:var(--sand)}
       <div class="links">
         <a class="link" href="https://wa.me/" target="_blank" rel="noopener">
           <b>WhatsApp</b><span>Ответим и предложим решение.</span>
+          <i>Написать <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg></i>
+        </a>
+        <a class="link" href="https://t.me/atlas" target="_blank" rel="noopener">
+          <b>Telegram</b><span>Быстрый чат по задаче.</span>
           <i>Написать <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg></i>
         </a>
         <a class="link" href="https://instagram.com/" target="_blank" rel="noopener">
