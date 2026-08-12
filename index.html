@@ -90,9 +90,6 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:100;op
 .hero::after{content:"";position:absolute;inset:0;z-index:-1;
   background:radial-gradient(ellipse 120% 95% at 50% 44%,transparent 55%,rgba(17,17,17,.55) 100%)}
 
-.eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;
-  color:var(--dim);border:1px solid var(--line);font-weight:700;padding:8px 15px;border-radius:100px;margin-bottom:24px}
-.eyebrow b{width:6px;height:6px;border-radius:50%;background:var(--teal)}
 h1{font-size:clamp(36px,4.4vw,62px);line-height:1;letter-spacing:-.05em;font-weight:800;margin:0 0 18px;max-width:17ch}
 h1 .serif{font-size:1.06em;color:var(--sand)}
 .lead{font-size:clamp(17px,1.5vw,21px);color:rgba(242,237,234,.78);max-width:24ch;margin:0 auto 22px;
@@ -292,12 +289,8 @@ h2 .serif{font-size:1.05em;color:var(--sand)}
 
 /* ---------- контакты ---------- */
 /* контакты — без островка, прямо на фоне страницы */
-.foot{position:relative;padding-top:clamp(12px,2vw,24px);border-top:1px solid var(--line)}
-.foot-top{display:flex;justify-content:space-between;align-items:flex-end;gap:26px;flex-wrap:wrap;
-  position:relative;padding-top:clamp(26px,4vw,44px)}
-.foot h2{max-width:15ch}
-.links{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px;
-  margin-top:clamp(28px,4vw,42px);position:relative}
+.foot{position:relative;padding-top:clamp(28px,4vw,44px);border-top:1px solid var(--line)}
+.links{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px;position:relative}
 .link{background:transparent;border:1px solid var(--line);border-radius:16px;
   padding:18px 18px 16px;transition:.4s var(--ease);display:flex;flex-direction:column;gap:4px}
 .link:hover{background:rgba(196,194,170,.08);border-color:rgba(196,194,170,.45);transform:translateY(-3px)}
@@ -355,7 +348,6 @@ h2 .serif{font-size:1.05em;color:var(--sand)}
   <div class="light"></div><div class="floor"></div>
   <div class="wrap">
     <div class="hero-copy">
-      <div class="eyebrow rv"><b></b>Для образовательных центров</div>
       <h1 class="rv">Цифровые продукты, на которых <span class="serif">растёт</span> образование</h1>
       <p class="lead rv">Сайты, платформы обучения<br>и системы управления</p>
       <ul class="steps rv">
@@ -560,14 +552,6 @@ h2 .serif{font-size:1.05em;color:var(--sand)}
 <section id="contact" style="padding-top:0">
   <div class="wrap">
     <div class="foot rv">
-      <div class="foot-top">
-        <div>
-          <div class="tag"><b></b>Есть задача?</div>
-          <h2>Расскажите о своём <span class="serif">центре</span></h2>
-        </div>
-        <a class="btn lg" href="https://wa.me/77070156063" target="_blank" rel="noopener">Написать в WhatsApp
-          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
-      </div>
       <div class="links">
         <a class="link" href="https://wa.me/77070156063" target="_blank" rel="noopener">
           <b>WhatsApp</b><span>Ответим и предложим решение.</span>
