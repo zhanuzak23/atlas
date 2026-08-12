@@ -43,28 +43,16 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:100;op
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E")}
 
 /* ---------- шапка: полностью непрозрачная ---------- */
-/* шапка: сплошная всегда, вместе со статус-баром — под ней ничего не видно */
+/* шапка: сплошная полоса во всю ширину, сливается с фоном страницы */
 .nav{position:fixed;top:0;left:0;right:0;z-index:70;
-  background:var(--bg);
-  padding-top:env(safe-area-inset-top,0px);
-  border-bottom:1px solid transparent;transition:border-color .3s var(--ease)}
-/* страховка: заливка выше шапки на случай, если браузер сдвигает вьюпорт */
-.nav::before{content:"";position:absolute;left:0;right:0;bottom:100%;height:140px;background:var(--bg)}
-.nav.stuck{border-bottom-color:var(--line)}
-.nav .bar{display:flex;align-items:center;justify-content:space-between;gap:20px;height:var(--nav-h);
-  max-width:1280px;margin:0 auto;padding:0 var(--pad);transition:height .35s var(--ease)}
-.nav.stuck .bar{height:60px}
-.logo{display:block;height:24px;color:var(--text);transition:height .35s var(--ease);
-  background:none;border:0;padding:0}
-.nav.stuck .logo{height:21px}
+  background:var(--bg);padding-top:env(safe-area-inset-top,0px)}
+/* заливка выше шапки — закрывает статус-бар при любом сдвиге вьюпорта */
+.nav::before{content:"";position:absolute;left:0;right:0;bottom:100%;height:200px;background:var(--bg)}
+/* имя nav-row, а не bar: класс .bar занят полосками внутри мини-интерфейсов */
+.nav-row{display:flex;align-items:center;height:var(--nav-h);
+  max-width:1280px;margin:0 auto;padding:0 var(--pad)}
+.logo{display:block;height:24px;color:var(--text);background:none;border:0;padding:0}
 .logo svg{height:100%;width:auto;display:block}
-
-/* иконка Telegram — белая, без подложки */
-.tg{display:grid;place-items:center;flex:none;color:#fff;background:none;
-  width:38px;height:38px;transition:.3s var(--ease)}
-.tg svg{width:32px;height:32px;display:block}
-.tg:hover{transform:translateY(-2px);opacity:.82}
-.nav.stuck .tg svg{width:29px;height:29px}
 
 .btn{display:inline-flex;align-items:center;gap:9px;background:var(--sand);color:var(--bg);
   padding:13px 22px;border-radius:100px;font-weight:700;font-size:14.5px;letter-spacing:-.015em;
@@ -80,15 +68,14 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:100;op
 /* ---------- главная ---------- */
 .hero{position:relative;overflow:hidden;isolation:isolate;
   padding:calc(var(--nav-h) + env(safe-area-inset-top,0px) + clamp(36px,5vw,64px)) 0 clamp(40px,5vw,68px)}
-.hero .light{position:absolute;left:50%;top:-42%;width:min(1400px,150vw);aspect-ratio:1/.7;transform:translateX(-50%);
-  background:radial-gradient(ellipse at 50% 42%,rgba(108,155,173,.2),rgba(34,77,95,.14) 34%,transparent 68%);
-  filter:blur(30px);z-index:-2}
+/* подсветка: радиальный градиент во всю ширину блока — без width, blur и масок,
+   иначе размытый прямоугольник читается вверху как отдельная плашка */
+.hero .light{position:absolute;inset:0;z-index:-2;pointer-events:none;
+  background:radial-gradient(ellipse 62% 44% at 50% 46%,rgba(108,155,173,.17),rgba(34,77,95,.09) 45%,transparent 72%)}
 .hero .floor{position:absolute;left:0;right:0;bottom:0;height:44%;z-index:-2;opacity:.45;
   background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
   background-size:74px 74px;transform:perspective(600px) rotateX(66deg);transform-origin:bottom;
   -webkit-mask-image:linear-gradient(to top,#000,transparent 78%);mask-image:linear-gradient(to top,#000,transparent 78%)}
-.hero::after{content:"";position:absolute;inset:0;z-index:-1;
-  background:radial-gradient(ellipse 120% 95% at 50% 44%,transparent 55%,rgba(17,17,17,.55) 100%)}
 
 h1{font-size:clamp(36px,4.4vw,62px);line-height:1;letter-spacing:-.05em;font-weight:800;margin:0 0 18px;max-width:17ch}
 h1 .serif{font-size:1.06em;color:var(--sand)}
@@ -329,14 +316,9 @@ h2 .serif{font-size:1.05em;color:var(--sand)}
 </svg>
 
 <header class="nav" id="nav">
-  <div class="bar">
+  <div class="nav-row">
     <a class="logo" href="#top" aria-label="Atlas — на главную">
       <svg viewBox="0 0 928 141"><use href="#atlas-logo"/></svg>
-    </a>
-    <a class="tg" href="https://t.me/atlas" target="_blank" rel="noopener" aria-label="Написать в Telegram" title="Написать в Telegram">
-      <svg viewBox="0 0 240 240" fill="currentColor" aria-hidden="true">
-        <path d="M188.4 61.6 165 187.3c-1.8 8-6.5 10-13.2 6.2l-36.4-26.8-17.6 16.9c-1.9 1.9-3.6 3.6-7.3 3.6l2.6-37.1 67.5-61c2.9-2.6-.6-4.1-4.5-1.5L71.6 141l-35.9-11.2c-7.8-2.4-8-7.8 1.6-11.6L178.3 50c6.5-2.4 12.2 1.6 10.1 11.6Z"/>
-      </svg>
     </a>
   </div>
 </header>
@@ -585,9 +567,6 @@ h2 .serif{font-size:1.05em;color:var(--sand)}
     el.style.transitionDelay = Math.min(i, 6) * 55 + 'ms'; io.observe(el);
   });
 
-  const nav = document.getElementById('nav');
-  const onScroll = () => nav.classList.toggle('stuck', scrollY > 12);
-  addEventListener('scroll', onScroll, { passive: true }); onScroll();
 })();
 </script>
 </body>
